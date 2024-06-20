@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">サイゼリヤガチャ</string>
+    <string name="contains_alcohol">アルコールを含む</string>
+    <string name="contains_kids">お子さまメニューを含む</string>
+    <string name="show_menu_number">注文番号を表示</string>
+</resources>
