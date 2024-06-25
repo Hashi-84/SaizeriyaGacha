@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  * @param menuId 注文時に指定する番号(重複する場合あり)
  * @param name 商品名
  * @param price 商品の税抜価格
- * @param area 販売地域(関東: east / 関西: west / 埼玉: saitama)
+ * @param area 販売地域(全国: national / 北海道: hokkaido / 埼玉: saitama)
  * @param category 商品のカテゴリ
  * @param isAvailable 販売中のメニューであるか
  **/
@@ -21,7 +21,6 @@ data class MenuItem(
     val price: Int,
     val area: Array<String>,
     val category: String,
-    @SerialName("isAvailableNow")
     val isAvailable: Boolean
 ) {
     override fun equals(other: Any?): Boolean {
