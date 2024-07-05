@@ -1,6 +1,6 @@
 package jp.hashi.menuarranger.model
 
-import kotlinx.serialization.SerialName
+import androidx.collection.arrayMapOf
 import kotlinx.serialization.Serializable
 
 /**
@@ -51,3 +51,9 @@ data class MenuItem(
         return result
     }
 }
+
+val menuArea = arrayMapOf(
+    Pair("national", "全国"),
+    Pair("hokkaido", "北海道 (東京・神奈川の一部地域)"),
+    Pair("saitama", "埼玉 (東京・神奈川の一部地域)")
+)

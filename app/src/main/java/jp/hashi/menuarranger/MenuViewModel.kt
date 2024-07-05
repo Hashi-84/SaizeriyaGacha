@@ -2,27 +2,53 @@ package jp.hashi.menuarranger
 
 import android.content.res.AssetManager
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import jp.hashi.menuarranger.model.MenuItem
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
-import kotlin.math.floor
-import kotlin.math.roundToInt
 
 class MenuViewModel(private val assetManager: AssetManager) : ViewModel() {
     private lateinit var menuItems: List<MenuItem>
     val chosenMenuItems = MutableLiveData<List<MenuItem>>(listOf())
-    private val alcoholContains = MutableLiveData(true)
     private lateinit var categories: Array<String>
-    private val kidsContains = MutableLiveData(true)
+
+    // LiveDataの定義
+    private val _alcoholContains = MutableLiveData(true)
+    val alcoholContains: LiveData<Boolean> = _alcoholContains
+    fun setAlcoholContains(containsAlcohol: Boolean) { _alcoholContains.value = containsAlcohol }
+
+    private val _kidsContains = MutableLiveData(true)
+    val kidsContains: LiveData<Boolean> = _kidsContains
+    fun setKidsContains(containsKids: Boolean) { _kidsContains.value = containsKids }
+
+    private val _ceilingPrice = MutableLiveData(1000)
+    val ceilingPrice: LiveData<Int> = _ceilingPrice
+    fun setCeilingPrice(ceilingPrice: Int) { _ceilingPrice.value = ceilingPrice }
+
+    private var _showMenuId = MutableLiveData(true)
+    val showMenuId: LiveData<Boolean> = _showMenuId
+    fun setShowMenuId(showMenuId: Boolean) { _showMenuId.value = showMenuId }
 
     init {
         getMenuItemsFromJson()
         chooseMenuItems(1000)
     }
 
-    fun chooseMenuItems(ceilingPrice: Int) {
+    fun onChooseBtnClick(ceilingPrice: Int, snackbar: (String) -> Unit) {
+        if (ceilingPrice > 1000000) {
+            chosenMenuItems.value = listOf()
+            snackbar("上限金額は100万円以下にしてください")
+        } else chooseMenuItems(ceilingPrice)
+    }
+
+    private fun chooseMenuItems(ceilingPrice: Int) {
         categories = getCategoryArray()
         var balance = ceilingPrice
         val lowestPrice: Int = menuItems
@@ -60,9 +86,6 @@ class MenuViewModel(private val assetManager: AssetManager) : ViewModel() {
 
         menuItems = Json.decodeFromString<List<MenuItem>>(ListSerializer(MenuItem.serializer()), jsonString)
             .filter{ it.isAvailable }
-        Log.d("TEST", menuItems.toString())
+//        Log.d("TEST", menuItems.toString())
     }
-
-    fun setAlcohol(containsAlcohol: Boolean) { alcoholContains.value = containsAlcohol }
-    fun setKids(containsKids: Boolean) { kidsContains.value = containsKids }
 }
