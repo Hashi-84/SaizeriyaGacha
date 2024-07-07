@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -53,6 +54,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
+import jp.hashi.menuarranger.model.MenuCategory
 import jp.hashi.menuarranger.model.MenuItem
 import jp.hashi.menuarranger.ui.theme.MenuArrangerTheme
 import kotlinx.coroutines.launch
@@ -96,6 +98,7 @@ fun Greeting(
     val kidsContains by viewModel.kidsContains.observeAsState(true)
     val ceilingPrice by viewModel.ceilingPrice.observeAsState(1000)
     val showMenuId by viewModel.showMenuId.observeAsState(true)
+    val chosenCategories by viewModel.chosenCategories.observeAsState(viewModel.chosenCategories.value)
 
     Scaffold(
         floatingActionButton = {
@@ -210,33 +213,50 @@ fun Greeting(
                 Column(
                     Modifier
                         .padding(16.dp)
-                        .padding(bottom = 36.dp)
-                ) {
 
-                    Row {
-                        Switch(
-                            onCheckedChange = viewModel::setAlcoholContains,
-                            checked = alcoholContains
-                        )
-                        Text(
-                            text = stringResource(R.string.contains_alcohol),
-                            Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp, end = 8.dp)
-                        )
+                ) {
+                    LazyColumn(Modifier.fillMaxWidth().padding(bottom = 36.dp)) {
+                        items(viewModel.getCategories()) { category ->
+                            Row {
+                                chosenCategories?.let {
+                                    Switch(
+                                        onCheckedChange = { viewModel.changeCategoryChecked(category) },
+                                        checked = it.contains(category)
+                                    )
+                                Text(
+                                    text = category.name,
+                                    Modifier
+                                        .align(Alignment.CenterVertically)
+                                        .padding(start = 4.dp, end = 8.dp)
+                                )
+                                }
+                            }
+                        }
                     }
-                    Row {
-                        Switch(
-                            onCheckedChange =
-                            viewModel::setKidsContains, checked = kidsContains
-                        )
-                        Text(
-                            text = stringResource(R.string.contains_kids),
-                            Modifier
-                                .align(Alignment.CenterVertically)
-                                .padding(start = 4.dp, end = 8.dp)
-                        )
-                    }
+//                    Row {
+//                        Switch(
+//                            onCheckedChange = viewModel::setAlcoholContains,
+//                            checked = alcoholContains
+//                        )
+//                        Text(
+//                            text = stringResource(R.string.contains_alcohol),
+//                            Modifier
+//                                .align(Alignment.CenterVertically)
+//                                .padding(start = 4.dp, end = 8.dp)
+//                        )
+//                    }
+//                    Row {
+//                        Switch(
+//                            onCheckedChange =
+//                            viewModel::setKidsContains, checked = kidsContains
+//                        )
+//                        Text(
+//                            text = stringResource(R.string.contains_kids),
+//                            Modifier
+//                                .align(Alignment.CenterVertically)
+//                                .padding(start = 4.dp, end = 8.dp)
+//                        )
+//                    }
                 }
             }
         }

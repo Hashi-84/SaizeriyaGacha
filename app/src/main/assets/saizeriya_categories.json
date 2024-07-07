@@ -1,0 +1,82 @@
+[
+    {
+        "category": "salad",
+        "name": "サラダ"
+    },
+    {
+        "category": "togo",
+        "name": "お持ち帰りメニュー"
+    },
+    {
+        "category": "soup",
+        "name": "スープ"
+    },
+    {
+        "category": "bread",
+        "name": "パン"
+    },
+    {
+        "category": "drinkbar",
+        "name": "ドリンクバー"
+    },
+    {
+        "category": "kidsdrinkbar",
+        "name": "キッズドリンクバー"
+    },
+    {
+        "category": "topping",
+        "name": "トッピング"
+    },
+    {
+        "category": "appetizer",
+        "name": "前菜"
+    },
+    {
+        "category": "alcohol",
+        "name": "アルコールメニュー"
+    },
+    {
+        "category": "pizza",
+        "name": "ピザ"
+    },
+    {
+        "category": "kidsfood",
+        "name": "キッズメニュー"
+    },
+    {
+        "category": "doria",
+        "name": "ドリア"
+    },
+    {
+        "category": "gratin",
+        "name": "グラタン"
+    },
+    {
+        "category": "pasta",
+        "name": "パスタ"
+    },
+    {
+        "category": "hamburg",
+        "name": "ハンバーグ"
+    },
+    {
+        "category": "rice",
+        "name": "ライス"
+    },
+    {
+        "category": "chicken",
+        "name": "チキン"
+    },
+    {
+        "category": "lamb",
+        "name": "ラム"
+    },
+    {
+        "category": "dessert-now",
+        "name": "デザート(すぐに提供)"
+    },
+    {
+        "category": "dessert-later",
+        "name": "デザート(あとで提供)"
+    }
+]
