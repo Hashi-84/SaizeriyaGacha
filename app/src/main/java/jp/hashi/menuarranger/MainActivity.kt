@@ -40,7 +40,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -54,7 +53,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
-import jp.hashi.menuarranger.model.MenuCategory
 import jp.hashi.menuarranger.model.MenuItem
 import jp.hashi.menuarranger.ui.theme.MenuArrangerTheme
 import kotlinx.coroutines.launch
@@ -94,8 +92,8 @@ fun Greeting(
     var showBottomSheet by remember { mutableStateOf(false) }
     val hostState = remember { SnackbarHostState() }
 
-    val alcoholContains by viewModel.alcoholContains.observeAsState(true)
-    val kidsContains by viewModel.kidsContains.observeAsState(true)
+//    val alcoholContains by viewModel.alcoholContains.observeAsState(true)
+//    val kidsContains by viewModel.kidsContains.observeAsState(true)
     val ceilingPrice by viewModel.ceilingPrice.observeAsState(1000)
     val showMenuId by viewModel.showMenuId.observeAsState(true)
     val chosenCategories by viewModel.chosenCategories.observeAsState(viewModel.chosenCategories.value)
@@ -274,18 +272,18 @@ fun MenuListItem(item: MenuItem, showMenuId: Boolean) {
         if (showMenuId) FilledTonalButton(onClick = {}, Modifier.padding(end = 8.dp)) {
             Text(
                 text = item.menuId.toString(),
-                style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
         }
         Text(
             item.name, Modifier.weight(1f),
-            style = androidx.compose.material3.MaterialTheme.typography.bodyLarge
+            style = MaterialTheme.typography.bodyLarge
         )
         Text(
             text = item.price.toString() + "円",
-            style = androidx.compose.material3.MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterVertically)
         )
